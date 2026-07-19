@@ -1,0 +1,9 @@
+{
+  "name": "claude-auto-repo-setup",
+  "description": "On session start and working-directory change, ensures local-only Claude conveniences in the current git repo: creates CLAUDE.md pointing at an existing AGENTS.md, and symlinks each skill under .github/skills and each agent under .github/agents individually into .claude/, skipping any repo skill whose name collides with a built-in Claude Code skill (e.g. code-review) to avoid crashing skill loading. Idempotent, side-effect-safe, and adds everything to the repo's local git excludes so nothing is committed.",
+  "version": "0.1.0",
+  "author": {
+    "name": "niander"
+  },
+  "keywords": ["hooks", "session-start", "repo-setup", "agents-md", "skills"]
+}

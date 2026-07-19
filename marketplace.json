@@ -1,0 +1,18 @@
+{
+  "name": "niander-agent-marketplace",
+  "owner": {
+    "name": "niander"
+  },
+  "metadata": {
+    "description": "Personal local Copilot CLI plugins.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "pr-code-review",
+      "source": "./code-review",
+      "description": "Multi-model AI code review. An orchestrator skill dispatches read-only code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters, fixes, and can persist findings to an opt-in SQL board.",
+      "version": "0.1.0"
+    }
+  ]
+}

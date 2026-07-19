@@ -1,0 +1,24 @@
+{
+  "name": "niander-agent-marketplace",
+  "owner": {
+    "name": "niander"
+  },
+  "metadata": {
+    "description": "Personal local plugins.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "pr-code-review",
+      "source": "./code-review",
+      "description": "Multi-model AI code review. An orchestrator skill dispatches read-only code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters and synthesizes them into a findings report plus machine-readable JSON.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "claude-auto-repo-setup",
+      "source": "./claude-auto-repo-setup",
+      "description": "SessionStart + CwdChanged hooks that auto-wire local-only Claude conveniences in the current git repo: CLAUDE.md -> AGENTS.md, and .claude/skills & .claude/agents symlinks to .github/. Idempotent and never commits anything.",
+      "version": "0.1.0"
+    }
+  ]
+}
