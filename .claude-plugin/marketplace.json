@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "pr-code-review",
-      "source": "./code-review",
+      "source": "./pr-code-review",
       "description": "Multi-model AI code review. An orchestrator skill dispatches read-only code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters and synthesizes them into a findings report plus machine-readable JSON.",
       "version": "0.1.0"
     },
