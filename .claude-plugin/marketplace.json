@@ -4,7 +4,7 @@
     "name": "niander"
   },
   "metadata": {
-    "description": "Personal local plugins.",
+    "description": "Personal plugins marketplace.",
     "version": "0.1.0"
   },
   "plugins": [
