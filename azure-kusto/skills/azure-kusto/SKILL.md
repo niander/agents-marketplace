@@ -100,6 +100,7 @@ Queries can be sent through the Kusto REST endpoint:
 
 ```bash
 az rest --method post \
+  --resource "https://api.kusto.windows.net" \
   --url "https://<cluster>.<region>.kusto.windows.net/v1/rest/query" \
   --body "{ \"db\": \"<database>\", \"csl\": \"<kql-query>\" }"
 ```

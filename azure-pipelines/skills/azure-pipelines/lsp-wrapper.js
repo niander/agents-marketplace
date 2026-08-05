@@ -219,7 +219,6 @@ function buildConfigNotification() {
         },
         http: {
           proxy: process.env.HTTPS_PROXY || process.env.HTTP_PROXY || '',
-          proxyStrictSSL: false,
         },
       },
     },
