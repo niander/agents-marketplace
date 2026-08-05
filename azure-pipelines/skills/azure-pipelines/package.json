@@ -1,0 +1,12 @@
+{
+  "name": "azure-pipelines-skill-wrapper",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "20 || >=22"
+  },
+  "dependencies": {
+    "azure-pipelines-language-server": "0.8.0",
+    "minimatch": "10.2.5"
+  }
+}

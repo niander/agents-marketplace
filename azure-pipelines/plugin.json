@@ -1,0 +1,12 @@
+{
+  "name": "azure-pipelines",
+  "description": "Azure Pipelines YAML guidance with schema-aware language server support for pipelines and templates.",
+  "version": "1.0.0",
+  "author": {
+    "name": "niander"
+  },
+  "license": "MIT",
+  "keywords": ["azure", "pipelines", "azure-devops", "yaml", "lsp"],
+  "skills": "skills/",
+  "lspServers": "lsp.json"
+}

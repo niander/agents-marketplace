@@ -1,0 +1,37 @@
+## Summary
+
+<!-- Describe the plugin or marketplace outcome and its user-visible impact. -->
+
+## Scope
+
+**Plugin(s):**
+
+<!-- Name the affected plugin directories, or "Marketplace only". -->
+
+**Affected runtimes:**
+
+<!-- GitHub Copilot CLI, Claude Code, or both. -->
+
+**Change type:**
+
+<!-- New plugin, existing plugin update, or marketplace/repository infrastructure. -->
+
+## Why
+
+<!-- Explain the problem or motivation. Link a related issue with "Closes #123" when applicable. -->
+
+## Changes and compatibility
+
+<!-- Highlight important behavior, manifest, version, or dependency changes. Explain intentional differences between the Copilot and Claude packages. Avoid restating the file diff. -->
+
+- 
+
+## Validation
+
+<!-- For each selected runtime, describe how the plugin or marketplace was loaded and verified. Include relevant commands or manual scenarios. Use "Not applicable" with a reason when appropriate. -->
+
+- 
+
+## Risk
+
+<!-- Note breaking changes, migration needs, behavior changes to existing skills or agents, or other meaningful risks. Use "None" when applicable. -->
