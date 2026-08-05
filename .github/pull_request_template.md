@@ -10,14 +10,11 @@
 
 **Affected runtimes:**
 
-- [ ] GitHub Copilot CLI
-- [ ] Claude Code
+<!-- GitHub Copilot CLI, Claude Code, or both. -->
 
 **Change type:**
 
-- [ ] New plugin
-- [ ] Existing plugin update
-- [ ] Marketplace or repository infrastructure
+<!-- New plugin, existing plugin update, or marketplace/repository infrastructure. -->
 
 ## Why
 
