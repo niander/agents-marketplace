@@ -13,4 +13,5 @@
 - Keep shared plugin identity, source, and user-visible behavior consistent across marketplaces while retaining runtime-specific configuration where required. Define release versions in plugin manifests rather than duplicating them in marketplace entries.
 - Keep plugin and skill names aligned with their directory names, and ensure manifest and frontmatter paths reference existing bundled assets.
 - When relocating an existing skill, agent, script, or language-server integration, preserve its content, companion assets, metadata, dependency versions, and runtime behavior. Limit edits to those required for packaging compatibility.
+- When drafting pull request descriptions, describe the repository-visible outcome for reviewers. Do not include private provenance such as where files came from, that they previously existed on a local machine, or other authoring-process context unless it affects behavior or reproducibility.
 - Preserve LF line endings for JSON, Markdown, and shell files as required by `.gitattributes`.

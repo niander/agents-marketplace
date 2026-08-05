@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- Describe the repository-visible outcome and its user impact. Write for a reviewer who only knows this repository. Do not include private provenance such as where the files came from, that they previously existed on a local machine, or other authoring-process context unless it affects behavior or reproducibility. -->
+<!-- Describe the repository-visible outcome and its user impact. Write for a reviewer who only knows this repository. -->
 
 ## Scope
 
