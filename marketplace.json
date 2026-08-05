@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Personal plugins marketplace.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -13,6 +13,18 @@
       "source": "./pr-code-review",
       "description": "Multi-model AI code review. An orchestrator skill dispatches read-only code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters, fixes, and can persist findings to an opt-in SQL board.",
       "version": "0.1.0"
+    },
+    {
+      "name": "azure-kusto",
+      "source": "./azure-kusto",
+      "description": "Azure Data Explorer and KQL guidance for querying logs, telemetry, time series, and ADX resources.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "azure-pipelines",
+      "source": "./azure-pipelines",
+      "description": "Azure Pipelines YAML guidance with schema-aware language server support for pipelines and templates.",
+      "version": "1.0.0"
     }
   ]
 }

@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Personal plugins marketplace.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -19,6 +19,18 @@
       "source": "./claude-auto-repo-setup",
       "description": "SessionStart + CwdChanged hooks that auto-wire local-only Claude conveniences in the current git repo: CLAUDE.md -> AGENTS.md, and .claude/skills & .claude/agents symlinks to .github/. Idempotent and never commits anything.",
       "version": "0.1.0"
+    },
+    {
+      "name": "azure-kusto",
+      "source": "./azure-kusto",
+      "description": "Azure Data Explorer and KQL guidance for querying logs, telemetry, time series, and ADX resources.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "azure-pipelines",
+      "source": "./azure-pipelines",
+      "description": "Azure Pipelines YAML guidance with schema-aware language server support for pipelines and templates.",
+      "version": "1.0.0"
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "azure-kusto",
+  "description": "Azure Data Explorer and KQL guidance for querying logs, telemetry, time series, and ADX resources.",
+  "version": "1.0.0",
+  "author": {
+    "name": "niander"
+  },
+  "license": "MIT",
+  "keywords": ["azure", "kusto", "adx", "kql", "telemetry", "logs"]
+}
