@@ -26,6 +26,11 @@
       "name": "azure-pipelines",
       "source": "./azure-pipelines",
       "description": "Azure Pipelines YAML guidance with schema-aware language server support for pipelines and templates."
+    },
+    {
+      "name": "human-message-style",
+      "source": "./human-message-style",
+      "description": "Rules for drafting concise, natural chat messages, emails, announcements, PR comments, and short teammate-facing summaries."
     }
   ]
 }

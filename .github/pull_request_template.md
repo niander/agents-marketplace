@@ -1,6 +1,6 @@
 ## Summary
 
-<!-- Describe the plugin or marketplace outcome and its user-visible impact. -->
+<!-- Describe the repository-visible outcome and its user impact. Write for a reviewer who only knows this repository. -->
 
 ## Scope
 
