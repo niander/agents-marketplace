@@ -1,0 +1,10 @@
+{
+  "name": "run-simplify",
+  "description": "Code-quality cleanup pass over a diff. Four parallel review agents look for reuse, simplification, efficiency, and altitude issues, then the fixes are applied. It does not hunt for correctness bugs. Adapted from the Claude Code built-in `simplify` skill; invoked manually only (not auto-invoked).",
+  "version": "1.0.0",
+  "author": {
+    "name": "niander"
+  },
+  "keywords": ["cleanup", "refactor", "simplify", "code-quality", "diff"],
+  "skills": "skills/"
+}
