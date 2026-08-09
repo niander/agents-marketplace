@@ -31,6 +31,14 @@
       "name": "human-message-style",
       "source": "./human-message-style",
       "description": "Rules for drafting concise, natural chat messages, emails, announcements, PR comments, and short teammate-facing summaries."
+    },
+    {
+      "name": "sembr",
+      "source": {
+        "source": "github",
+        "repo": "sembr/skills"
+      },
+      "description": "Reflow prose into Semantic Line Breaks (sembr.org), one thought per line, across Markdown, AsciiDoc, reStructuredText, LaTeX, and other markup while preserving rendered output."
     }
   ]
 }
