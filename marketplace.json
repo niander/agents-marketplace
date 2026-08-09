@@ -36,7 +36,8 @@
       "name": "sembr",
       "source": {
         "source": "github",
-        "repo": "sembr/skills"
+        "repo": "sembr/skills",
+        "sha": "5f973aaa75b1165b03dd45dca4cd1dc0437deba3"
       },
       "description": "Reflow prose into Semantic Line Breaks (sembr.org), one thought per line, across Markdown, AsciiDoc, reStructuredText, LaTeX, and other markup while preserving rendered output."
     }
