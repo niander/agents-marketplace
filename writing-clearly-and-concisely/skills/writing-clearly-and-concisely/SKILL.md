@@ -1,13 +1,13 @@
 ---
 name: writing-clearly-and-concisely
-description: Use when writing or editing a substantial document for human readers, e.g., documentation, READMEs, design docs, reports, articles. Also when the user asks to make existing text clearer or tighter, or to stop it sounding AI-generated. Contains Strunk's Elements of Style plus a field guide to AI writing tells. Not for short prose, such as chat replies, commit messages, or single comments.
+description: Use when writing or editing a substantial document for human readers, e.g., documentation, READMEs, design docs, reports, articles. Also when the user asks to make existing text clearer or tighter, or to stop it sounding AI-generated. Contains Strunk's principles of composition plus a field guide to AI writing tells. Not for short prose, such as chat replies, commit messages, or single comments.
 ---
 
 # Writing Clearly and Concisely
 
 ## Overview
 
-Write with clarity and force. This skill covers what to do (Strunk) and what not to do (AI patterns).
+Two references on the same subject from opposite directions. Strunk describes what good prose is built from. The AI-tells guide catalogues what shows up when it isn't.
 
 ## When to Use This Skill
 
@@ -18,11 +18,11 @@ Use it for substantial prose someone will sit down and read:
 - Articles, announcements, long-form summaries
 - Any editing pass meant to make existing text clearer, tighter, or less AI-sounding
 
-## Elements of Style
+## Strunk's rules
 
-William Strunk Jr.'s *The Elements of Style* (1918) teaches you to write clearly and cut ruthlessly.
+From *The Elements of Style* (1918).
 
-### Rules
+### Main points
 
 **Elementary Rules of Usage (Grammar/Punctuation)**:
 
@@ -48,22 +48,17 @@ William Strunk Jr.'s *The Elements of Style* (1918) teaches you to write clearly
 17. Keep to one tense in summaries
 18. **Place emphatic words at end of sentence**
 
-### Reference Files
+### Reference files
 
-The rules above are summarized from Strunk's original text. For complete explanations with examples:
+Rules 1-7 are correctness, and stand on their own as a checklist. Rules 8-18 are craft.
 
-| Section | File |
-|---------|------|
-| Grammar, punctuation, comma rules | [02-elementary-rules-of-usage.md](./elements-of-style/02-elementary-rules-of-usage.md) |
-| Paragraph structure, active voice, concision | [03-elementary-principles-of-composition.md](./elements-of-style/03-elementary-principles-of-composition.md) |
-| Headings, quotations, formatting | [04-a-few-matters-of-form.md](./elements-of-style/04-a-few-matters-of-form.md) |
-| Word choice, common errors | [05-words-and-expressions-commonly-misused.md](./elements-of-style/05-words-and-expressions-commonly-misused.md) |
+Treat all of them as defaults with reasons, not commandments. Rule 10 makes this explicit about its own subject: the passive is right whenever the thing acted upon is what the paragraph is about.
 
-**Note:** Most tasks need only [03-elementary-principles-of-composition.md](./elements-of-style/03-elementary-principles-of-composition.md) — it covers active voice, positive form, concrete language, and omitting needless words.
+Load [03-elementary-principles-of-composition.md](./elements-of-style/03-elementary-principles-of-composition.md) when writing or tightening prose. It carries Strunk's reasoning and worked examples for rules 8-18.
 
-## AI Writing Patterns to Avoid
+## AI writing tells
 
-LLMs regress to statistical means, producing generic, puffy prose. Avoid:
+What fills the page when prose is generated rather than known. The patterns that recur most:
 
 - **Puffery:** pivotal, crucial, vital, testament, enduring legacy
 - **Empty "-ing" phrases:** ensuring reliability, showcasing features, highlighting capabilities
@@ -71,11 +66,17 @@ LLMs regress to statistical means, producing generic, puffy prose. Avoid:
 - **Overused AI vocabulary:** delve, leverage, multifaceted, foster, realm, tapestry
 - **Formatting overuse:** excessive bullets, emoji decorations, bold on every other word
 
-Be specific, not grandiose. Say what it actually does.
+These are signs, not verdicts. Every one has legitimate uses, and some things that feel like tells point the wrong way: perfect grammar, bland prose, and unusual words are not evidence. Treating the catalogue as a checklist does its own damage.
 
-For comprehensive research on why these patterns occur, see [./signs-of-ai-writing.md](./signs-of-ai-writing.md).
+Load [signs-of-ai-writing.md](./signs-of-ai-writing.md) when text reads as AI-generated.
 
-## Bottom Line
+## How the two references connect
 
-Writing for humans? Load the relevant section from [./elements-of-style/*.md](./elements-of-style/) and apply the rules.
-For most tasks, [03-elementary-principles-of-composition.md](./elements-of-style/03-elementary-principles-of-composition.md) covers what matters most.
+Rule 12 from *The Elements of Style*: Prefer the specific to the general, the definite to the vague, the concrete to the abstract. Example:
+
+> A period of unfavorable weather set in. → It rained every day for a week.
+
+The AI-tells guide catalogues what appears when the right-hand side isn't available: *marking a pivotal moment*, *plays a vital role*, *reflecting its continued relevance*. Those phrases arrive to fill a gap where a specific fact was missing. They are the symptom; the missing fact is the problem.
+
+So when one turns up in your own draft, the question is not which words to swap for which. It is what you actually know. What does this thing do, what did it cost, when does it break, who decided and why. Write that.
+

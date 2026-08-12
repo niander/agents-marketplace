@@ -17,16 +17,11 @@ files that are read only when a task needs them.
 
 | File | Purpose |
 | --- | --- |
-| `SKILL.md` | Core rules and routing to the reference files |
-| `elements-of-style/01-introductory.md` | Strunk's preface |
-| `elements-of-style/02-elementary-rules-of-usage.md` | Grammar, punctuation, comma rules |
-| `elements-of-style/03-elementary-principles-of-composition.md` | Paragraph structure, active voice, concision |
-| `elements-of-style/04-a-few-matters-of-form.md` | Headings, quotations, formatting |
-| `elements-of-style/05-words-and-expressions-commonly-misused.md` | Word choice and common errors |
+| `SKILL.md` | Core rules, and when to reach for each reference |
+| `elements-of-style/03-elementary-principles-of-composition.md` | Strunk on paragraph structure, active voice, concision |
 | `signs-of-ai-writing.md` | Condensed field guide to AI writing tells |
 
 Most tasks need only `03-elementary-principles-of-composition.md`.
-
 ## Attribution
 
 This skill started from
@@ -40,9 +35,10 @@ Earlier in the chain:
 
 - Original skill by [@joshuadavidthomas](https://github.com/joshuadavidthomas) in
   [joshuadavidthomas/agent-skills](https://github.com/joshuadavidthomas/agent-skills).
-- `elements-of-style/` adapted from
-  [obra/the-elements-of-style](https://github.com/obra/the-elements-of-style),
-  reproducing *The Elements of Style* by William Strunk Jr. (1918).
+- `elements-of-style/` reproduces Chapter III of *The Elements of Style* by
+  William Strunk Jr. (1918), via
+  [obra/the-elements-of-style](https://github.com/obra/the-elements-of-style).
+  The other chapters are not bundled.
 - `signs-of-ai-writing.md` is condensed and edited from
   [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
 

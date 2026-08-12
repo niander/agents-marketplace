@@ -58,7 +58,7 @@ For anyone who uses social media, expect a note that they "maintain an active so
 
 Chatbots insert shallow commentary on significance, recognition, or impact, usually as a present participle ("-ing") phrase tacked onto the end of a sentence.
 
-An even stronger tell is when the subjects of these verbs are facts, event, or other inanimate things. A person can highlight or emphasize something; a fact cannot. The "highlighting" is not an event — it is a disembodied narrator's claim about what something means, and it is usually unsupported synthesis or unattributed opinion in the document's own voice. Retrieval-augmented chatbots may hang these claims on a named source ("Roger Ebert highlighted the lasting influence") regardless of whether the source says anything close.
+An even stronger tell is when the subjects of these verbs are facts, events, or other inanimate things. A person can highlight or emphasize something; a fact cannot. The "highlighting" is not an event — it is a disembodied narrator's claim about what something means, and it is usually unsupported synthesis or unattributed opinion in the document's own voice. Retrieval-augmented chatbots may hang these claims on a named source ("Roger Ebert highlighted the lasting influence") regardless of whether the source says anything close.
 
 **Examples**
 
