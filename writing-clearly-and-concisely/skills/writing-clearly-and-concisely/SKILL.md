@@ -78,5 +78,5 @@ Rule 12 from *The Elements of Style*: Prefer the specific to the general, the de
 
 The AI-tells guide catalogues what appears when the right-hand side isn't available: *marking a pivotal moment*, *plays a vital role*, *reflecting its continued relevance*. Those phrases arrive to fill a gap where a specific fact was missing. They are the symptom; the missing fact is the problem.
 
-So when one turns up in your own draft, the question is not which words to swap for which. It is what you actually know. What does this thing do, what did it cost, when does it break, who decided and why. Write that.
+So when one turns up in your own draft, the question is not which words to swap for which. It is what you actually know: what this thing does, what it cost, when it breaks, who decided and why. Write that.
 

@@ -17,9 +17,11 @@ files that are read only when a task needs them.
 
 | File | Purpose |
 | --- | --- |
-| `SKILL.md` | Core rules, and when to reach for each reference |
-| `elements-of-style/03-elementary-principles-of-composition.md` | Strunk on paragraph structure, active voice, concision |
-| `signs-of-ai-writing.md` | Condensed field guide to AI writing tells |
+| [`SKILL.md`](skills/writing-clearly-and-concisely/SKILL.md) | Core rules, and when to reach for each reference |
+| [`elements-of-style/03-elementary-principles-of-composition.md`](skills/writing-clearly-and-concisely/elements-of-style/03-elementary-principles-of-composition.md) | Strunk on paragraph structure, active voice, concision |
+| [`signs-of-ai-writing.md`](skills/writing-clearly-and-concisely/signs-of-ai-writing.md) | Condensed field guide to AI writing tells |
+
+All three live under `skills/writing-clearly-and-concisely/`.
 
 ## Attribution
 
