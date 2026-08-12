@@ -21,7 +21,6 @@ files that are read only when a task needs them.
 | `elements-of-style/03-elementary-principles-of-composition.md` | Strunk on paragraph structure, active voice, concision |
 | `signs-of-ai-writing.md` | Condensed field guide to AI writing tells |
 
-Most tasks need only `03-elementary-principles-of-composition.md`.
 ## Attribution
 
 This skill started from
