@@ -15,7 +15,7 @@ and a troubleshooting list.
 
 ## Attribution
 
-This skill is adapted from `azure-kusto` skill in [microsoft/azure-skills](https://github.com/microsoft/azure-skills).
+This skill is adapted from the `azure-kusto` skill in [microsoft/azure-skills](https://github.com/microsoft/azure-skills).
 
 It starts from upstream version 1.1 — mirrored at commit
 [`317a8e7`](https://github.com/microsoft/azure-skills/commit/317a8e7b879c0ed6a1890378eafd939bdd9bc749)
