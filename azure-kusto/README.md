@@ -4,7 +4,7 @@ KQL guidance for Azure Data Explorer: discovering clusters and databases,
 inspecting table schemas, and querying logs, telemetry, and time series data.
 
 The skill carries a short query workflow, four annotated KQL patterns, the Kusto
-MCP tool surface, an Azure CLI fallback for when those tools are unavailable,
+MCP tool surface, an Azure CLI fallback for unavailable or failing tools,
 and a troubleshooting list.
 
 ## Bundled files
