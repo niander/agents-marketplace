@@ -4,6 +4,11 @@ version = 1
 # The repo default is MIT (see LICENSE); license texts live in LICENSES/.
 
 [[annotations]]
+path = "azure-kusto/skills/azure-kusto/**"
+SPDX-FileCopyrightText = ["2026 niander", "2025 Microsoft Corporation"]
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
 path = "writing-clearly-and-concisely/skills/writing-clearly-and-concisely/**"
 SPDX-FileCopyrightText = ["2026 niander", "2026 Leonardo Flores", "2025 Josh Thomas"]
 SPDX-License-Identifier = "MIT"
