@@ -4,7 +4,7 @@ description: "Query and analyze data in Azure Data Explorer (Kusto/ADX) using KQ
 license: MIT
 metadata:
   author: niander
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Azure Data Explorer (Kusto) Query and Analytics
@@ -83,11 +83,18 @@ When Azure Kusto MCP tools are available, use:
 | `kusto_table_schema_get` | Inspect a table schema |
 | `kusto_query` | Execute a KQL query |
 
-Typical parameters are `subscription`, `cluster`, `database`, `table`, and `query`. A cluster name normally excludes the `.kusto.windows.net` suffix.
+Typical parameters are `subscription`, `cluster`, `database`, `table`, and `query`. `resource-group` and `tenant` are optional; set `tenant` when the cluster lives outside the default directory. A cluster name normally excludes the `.kusto.windows.net` suffix.
 
 ## Azure CLI fallback
 
-If Kusto MCP tools are unavailable, use Azure CLI for resource discovery:
+Switch to Azure CLI when a Kusto MCP tool is unavailable, or when it:
+
+- times out, typically on queries running beyond 60 seconds;
+- reports the service as unavailable, or fails to connect;
+- fails authentication;
+- returns nothing for a database known to hold data.
+
+Use Azure CLI for resource discovery:
 
 ```bash
 az kusto cluster list --resource-group <resource-group>
@@ -110,5 +117,5 @@ az rest --method post \
 - Access denied: verify the active tenant and that the identity has at least database Viewer permissions.
 - Query timeout or high CPU: narrow the time range, filter earlier, reduce joins, and limit returned columns.
 - Syntax errors: check pipe placement, operator names, quoting, and table or column spelling.
-- Empty results: widen the time range and verify ingestion delay, database, and table selection.
+- Empty results: widen the time range and verify ingestion delay, database, and table selection. Streaming ingestion typically lands within 1-30 seconds depending on method, so recent data may not be queryable yet.
 - Cluster not found: verify subscription, resource group, region, and the short cluster name.

@@ -15,16 +15,12 @@ and a troubleshooting list.
 
 ## Attribution
 
-This skill is adapted from
-[`plugins/azure-skills/skills/azure-kusto`](https://github.com/microsoft/GitHub-Copilot-for-Azure/tree/main/plugins/azure-skills/skills/azure-kusto)
-in [microsoft/GitHub-Copilot-for-Azure](https://github.com/microsoft/GitHub-Copilot-for-Azure)
-by Microsoft, which is also published to
-[microsoft/azure-skills](https://github.com/microsoft/azure-skills).
+This skill is adapted from `azure-kusto` skill in [microsoft/azure-skills](https://github.com/microsoft/azure-skills).
 
 It starts from upstream version 1.1 — mirrored at commit
 [`317a8e7`](https://github.com/microsoft/azure-skills/commit/317a8e7b879c0ed6a1890378eafd939bdd9bc749)
-— and is condensed to roughly half the original length. It is not a verbatim
-copy; the substantive changes are:
+
+Some modifications:
 
 - The `az rest` fallback gains `--resource "https://api.kusto.windows.net"`.
   Without it the call acquires an ARM-scoped token, which the Kusto data-plane
@@ -37,15 +33,6 @@ copy; the substantive changes are:
   table, and time range before reporting no data.
 - Sections restating the frontmatter description or duplicating other sections
   are dropped.
-
-Upstream has since moved to version 1.2. The changes above are not upstreamed,
-so this copy is maintained here rather than tracked against a pinned revision.
-Version numbers in `SKILL.md` and `plugin.json` are this repository's own and do
-not follow upstream's; 1.1 is recorded above only as the point of departure.
-
-`SKILL.md` and `plugin.json` both name niander as author, recording who
-maintains this copy. Microsoft's copyright in the content it derives from is
-recorded in `REUSE.toml`.
 
 ## License
 
