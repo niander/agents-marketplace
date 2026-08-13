@@ -33,6 +33,11 @@
       "description": "Rules for drafting concise, natural chat messages, emails, announcements, PR comments, and short teammate-facing summaries."
     },
     {
+      "name": "writing-clearly-and-concisely",
+      "source": "./writing-clearly-and-concisely",
+      "description": "Makes long-form writing clearer, tighter, and less AI-sounding. Bundles Strunk's Elements of Style with a condensed field guide to the tells of AI-generated prose."
+    },
+    {
       "name": "sembr",
       "source": {
         "source": "github",
