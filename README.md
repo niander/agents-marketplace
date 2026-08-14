@@ -1,4 +1,4 @@
-# agents-marketplace
+# niander/agents-marketplace
 
 A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins) and [Claude Code](https://code.claude.com/docs/en/plugins).
 Plugins bundle skills, agents, or hooks for one or both CLIs.
@@ -7,8 +7,10 @@ Add it as a marketplace from `niander/agents-marketplace`.
 
 ## Plugins
 
+### Local plugins
+
 | Plugin | What it does | Copilot CLI | Claude Code |
-| --- | --- | :-: | :-: |
+| --- | --- | :---: | :---: |
 | [`pr-code-review`](pr-code-review) | Multi-model code review: sub-agents report findings with confidence scores, an orchestrator filters and synthesizes them | ✅ | ✅ |
 | [`azure-kusto`](azure-kusto) | KQL and Azure Data Explorer guidance for logs, telemetry, and time series | ✅ | ✅ |
 | [`azure-pipelines`](azure-pipelines) | Azure Pipelines YAML guidance with schema-aware language server support | ✅ | ✅ |
@@ -16,6 +18,11 @@ Add it as a marketplace from `niander/agents-marketplace`.
 | [`human-message-style`](human-message-style) | Rules for drafting concise, natural chat messages, emails, and PR comments | ✅ | ✅ |
 | [`writing-clearly-and-concisely`](writing-clearly-and-concisely) | Editing help for long-form writing, including the tells of AI-generated prose | ✅ | ✅ |
 | [`claude-auto-repo-setup`](claude-auto-repo-setup) | Hooks that wire up local-only Claude conveniences in the current git repo | — | ✅ |
+
+### External plugins
+
+| Plugin | What it does | Copilot CLI | Claude Code |
+| --- | --- | :---: | :---: |
 | `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). Sourced from [sembr/skills](https://github.com/sembr/skills) | ✅ | ✅ |
 
 ## Layout
