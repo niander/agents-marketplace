@@ -1,8 +1,7 @@
 # agents-marketplace
 
-A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins)
-and [Claude Code](https://code.claude.com/docs/en/plugins). Each plugin bundles
-skills, agents, or hooks that both CLIs can install.
+A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins) and [Claude Code](https://code.claude.com/docs/en/plugins).
+Plugins bundle skills, agents, or hooks for one or both CLIs.
 
 Add it as a marketplace from `niander/agents-marketplace`.
 
@@ -22,14 +21,16 @@ Add it as a marketplace from `niander/agents-marketplace`.
 ## Layout
 
 - `marketplace.json` — the catalog Copilot CLI reads.
-- `.claude-plugin/marketplace.json` — the catalog Claude Code reads. The two
-  lists differ where a plugin only works on one platform.
-- One directory per plugin, holding its manifests and its `skills/`, `agents/`,
-  or `hooks/` assets.
+- `.claude-plugin/marketplace.json` — the catalog Claude Code reads.
+  The two lists differ where a plugin only works on one platform.
+- Local plugins each have a directory holding their manifests and `skills/`, `agents/`, or `hooks/` assets.
+  Externally sourced plugins are pinned in the marketplace manifests.
 - `AGENTS.md` — conventions to follow when changing this repo.
 
 ## License
 
-MIT, except where noted. Some plugins bundle third-party content under other
-terms; per-file licensing is declared in `REUSE.toml`, with license texts in
-`LICENSES/`. Attribution for those plugins lives in their own `README.md`.
+MIT, except where noted.
+Some plugins bundle third-party content under other terms;
+per-file licensing is declared in `REUSE.toml`,
+with license texts in `LICENSES/`.
+Attribution for those plugins lives in their own `README.md`.
