@@ -21,9 +21,9 @@ Add it as a marketplace from `niander/agents-marketplace`.
 
 ### External plugins
 
-| Plugin | What it does | Copilot CLI | Claude Code |
-| --- | --- | :---: | :---: |
-| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). Sourced from [sembr/skills](https://github.com/sembr/skills) | ✅ | ✅ |
+| Plugin | What it does | Source | Copilot CLI | Claude Code |
+| --- | --- | --- | :---: | :---: |
+| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). | `{"source":"github","repo":"sembr/skills","sha":"5f973aaa75b1165b03dd45dca4cd1dc0437deba3"}` | ✅ | ✅ |
 
 ## Layout
 
