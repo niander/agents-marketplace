@@ -14,5 +14,6 @@
 - Keep plugin and skill names aligned with their directory names, and ensure manifest and frontmatter paths reference existing bundled assets.
 - When relocating an existing skill, agent, script, or language-server integration, preserve its content, companion assets, metadata, dependency versions, and runtime behavior. Limit edits to those required for packaging compatibility.
 - Declare licensing for vendored or derived third-party content in `REUSE.toml` following the [REUSE specification](https://reuse.software/spec/), with verbatim SPDX license texts in `LICENSES/`. Add an `[[annotations]]` entry per affected path rather than writing license prose; a plugin whose content is all original needs no entry. Put provenance and attribution in the plugin's `README.md`. Verify with `uvx reuse lint-file <paths>`.
+- Do not declare a `license` field in plugin manifests or skill frontmatter. The root `LICENSE` and `REUSE.toml` are authoritative.
 - When drafting pull request descriptions, describe the repository-visible outcome for reviewers. Do not include private provenance such as where files came from, that they previously existed on a local machine, or other authoring-process context unless it affects behavior or reproducibility.
 - Preserve LF line endings for JSON, Markdown, and shell files as required by `.gitattributes`.
