@@ -1,15 +1,16 @@
-# agents-marketplace
+# niander/agents-marketplace
 
-A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins)
-and [Claude Code](https://code.claude.com/docs/en/plugins). Each plugin bundles
-skills, agents, or hooks that both CLIs can install.
+A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins) and [Claude Code](https://code.claude.com/docs/en/plugins).
+Plugins bundle skills, agents, or hooks for one or both CLIs.
 
 Add it as a marketplace from `niander/agents-marketplace`.
 
 ## Plugins
 
+### Local plugins
+
 | Plugin | What it does | Copilot CLI | Claude Code |
-| --- | --- | :-: | :-: |
+| --- | --- | :---: | :---: |
 | [`pr-code-review`](pr-code-review) | Multi-model code review: sub-agents report findings with confidence scores, an orchestrator filters and synthesizes them | ✅ | ✅ |
 | [`azure-kusto`](azure-kusto) | KQL and Azure Data Explorer guidance for logs, telemetry, and time series | ✅ | ✅ |
 | [`azure-pipelines`](azure-pipelines) | Azure Pipelines YAML guidance with schema-aware language server support | ✅ | ✅ |
@@ -17,19 +18,35 @@ Add it as a marketplace from `niander/agents-marketplace`.
 | [`human-message-style`](human-message-style) | Rules for drafting concise, natural chat messages, emails, and PR comments | ✅ | ✅ |
 | [`writing-clearly-and-concisely`](writing-clearly-and-concisely) | Editing help for long-form writing, including the tells of AI-generated prose | ✅ | ✅ |
 | [`claude-auto-repo-setup`](claude-auto-repo-setup) | Hooks that wire up local-only Claude conveniences in the current git repo | — | ✅ |
-| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). Sourced from [sembr/skills](https://github.com/sembr/skills) | ✅ | ✅ |
+
+### External plugins
+
+| Plugin | What it does | Source | Copilot CLI | Claude Code |
+| --- | --- | --- | :---: | :---: |
+| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). | [`sembr/skills@5f973aa`](https://github.com/sembr/skills/tree/5f973aaa75b1165b03dd45dca4cd1dc0437deba3) | ✅ | ✅ |
 
 ## Layout
 
 - `marketplace.json` — the catalog Copilot CLI reads.
-- `.claude-plugin/marketplace.json` — the catalog Claude Code reads. The two
-  lists differ where a plugin only works on one platform.
-- One directory per plugin, holding its manifests and its `skills/`, `agents/`,
-  or `hooks/` assets.
+- `.claude-plugin/marketplace.json` — the catalog Claude Code reads.
+  The two lists differ where a plugin only works on one platform.
+- Local plugins each have a directory holding their manifests and `skills/`, `agents/`, or `hooks/` assets.
+  Externally sourced plugins are pinned in the marketplace manifests.
 - `AGENTS.md` — conventions to follow when changing this repo.
+
+## Adding a plugin
+
+1. Add the plugin to `marketplace.json`, `.claude-plugin/marketplace.json`, or both, according to runtime support.
+2. For a local plugin, add its directory with the required manifests and runtime assets.
+   For an external plugin, use an immutable source revision in each relevant marketplace manifest.
+3. Add the plugin to the matching table above.
+   Mark each supported runtime, and link an external plugin's source cell to the exact pinned revision.
+4. Follow `AGENTS.md` for packaging, licensing, attribution, and validation requirements.
 
 ## License
 
-MIT, except where noted. Some plugins bundle third-party content under other
-terms; per-file licensing is declared in `REUSE.toml`, with license texts in
-`LICENSES/`. Attribution for those plugins lives in their own `README.md`.
+MIT, except where noted.
+Some plugins bundle third-party content under other terms;
+per-file licensing is declared in `REUSE.toml`,
+with license texts in `LICENSES/`.
+Attribution for those plugins lives in their own `README.md`.
