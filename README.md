@@ -23,7 +23,7 @@ Add it as a marketplace from `niander/agents-marketplace`.
 
 | Plugin | What it does | Source | Copilot CLI | Claude Code |
 | --- | --- | --- | :---: | :---: |
-| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). | `{"source":"github","repo":"sembr/skills","sha":"5f973aaa75b1165b03dd45dca4cd1dc0437deba3"}` | ✅ | ✅ |
+| `sembr` | Reflows prose into [Semantic Line Breaks](https://sembr.org). | [`sembr/skills@5f973aa`](https://github.com/sembr/skills/tree/5f973aaa75b1165b03dd45dca4cd1dc0437deba3) | ✅ | ✅ |
 
 ## Layout
 
@@ -33,6 +33,15 @@ Add it as a marketplace from `niander/agents-marketplace`.
 - Local plugins each have a directory holding their manifests and `skills/`, `agents/`, or `hooks/` assets.
   Externally sourced plugins are pinned in the marketplace manifests.
 - `AGENTS.md` — conventions to follow when changing this repo.
+
+## Adding a plugin
+
+1. Add the plugin to `marketplace.json`, `.claude-plugin/marketplace.json`, or both, according to runtime support.
+2. For a local plugin, add its directory with the required manifests and runtime assets.
+   For an external plugin, use an immutable source revision in each relevant marketplace manifest.
+3. Add the plugin to the matching table above.
+   Mark each supported runtime, and link an external plugin's source cell to the exact pinned revision.
+4. Follow `AGENTS.md` for packaging, licensing, attribution, and validation requirements.
 
 ## License
 
