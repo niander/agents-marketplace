@@ -4,24 +4,7 @@ A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/c
 and [Claude Code](https://code.claude.com/docs/en/plugins). Each plugin bundles
 skills, agents, or hooks that both CLIs can install.
 
-## Install
-
-Copilot CLI:
-
-```sh
-copilot plugin marketplace add niander/agents-marketplace
-copilot plugin install azure-kusto@niander-agents-marketplace
-```
-
-Claude Code:
-
-```
-/plugin marketplace add niander/agents-marketplace
-/plugin install azure-kusto@niander-agents-marketplace
-```
-
-Browse what is available with `copilot plugin marketplace browse niander-agents-marketplace`
-or `/plugin` in Claude Code.
+Add it as a marketplace from `niander/agents-marketplace`.
 
 ## Plugins
 
