@@ -5,6 +5,5 @@
   "author": {
     "name": "niander"
   },
-  "license": "MIT",
   "keywords": ["azure", "kusto", "adx", "kql", "telemetry", "logs"]
 }
