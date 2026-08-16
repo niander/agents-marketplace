@@ -152,13 +152,16 @@ If it fails again, report the failure to the user and ask how to proceed.
 
 ## 5. Place individual findings
 
-Use an inline thread only when:
+Use an inline thread when either:
 
 - the finding has a repository-relative file and valid line,
-- it refers to the current/right side of the diff,
-- the current PR iteration still contains the relevant changed line.
+  refers to a changed line on either side of the diff,
+  and the current PR iteration still contains the relevant changed line; or
+- the finding applies to a single file without a line,
+  and that file appears in the current PR diff.
 
-If the finding is about a single file but not a specific line, still use an inline thread, omitting the line number.
+Use a right-side anchor for added or modified lines,
+and a left-side anchor for removed lines.
 Use a PR-level thread for the rest.
 
 Never attach a finding to an arbitrary nearby line.
