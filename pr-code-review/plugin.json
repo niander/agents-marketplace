@@ -1,6 +1,6 @@
 {
   "name": "pr-code-review",
-  "description": "Multi-model AI code review plus a standalone Azure DevOps findings reporter. The review skill coordinates read-only reviewer agents and synthesizes findings. The pr-code-review-ado-report skill can publish any supplied finding set to an ADO PR with severity-aware threads, stale-source confirmation, duplicate detection, and write verification. Invoked manually only.",
+  "description": "Pull request review toolkit with multi-model code analysis and Azure DevOps reporting. It runs diverse read-only reviewers, consolidates and verifies their findings, and includes a standalone skill for publishing structured findings from any source to ADO pull requests.",
   "version": "0.2.0",
   "author": {
     "name": "niander"

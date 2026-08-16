@@ -10,7 +10,7 @@
     {
       "name": "pr-code-review",
       "source": "./pr-code-review",
-      "description": "Multi-model AI code review plus a standalone Azure DevOps reporter for any finding set, with summary reporting, P0-P2 threads, stale-source confirmation, and duplicate safeguards."
+      "description": "Pull request review toolkit with multi-model code analysis and Azure DevOps reporting. It runs diverse read-only reviewers, consolidates and verifies their findings, and includes a standalone skill for publishing structured findings from any source to ADO pull requests."
     },
     {
       "name": "azure-kusto",
