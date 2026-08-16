@@ -1,14 +1,16 @@
 ---
 name: pr-code-review-ado-report
 description: "Report code-review findings to an Azure DevOps pull request. Use when the user asks to post, publish, or report any set of findings in ADO, regardless of where the findings came from. Produces a concise summary, separate P0-P2 threads, P3 findings in the summary, safe inline placement, duplicate detection, stale-source confirmation when commit metadata is available, and write verification. Azure DevOps only."
-user-invocable: true
-disable-model-invocation: true
 ---
 
 # pr-code-review-ado-report
 
 Report a supplied set of findings to an Azure DevOps pull request.
 The findings may come from the conversation, a file, JSON, a database table, another tool, or another agent.
+
+ADO writes require explicit user authorization.
+Automatic or model-selected invocation of this skill is not authorization.
+If the user has not clearly asked to publish the findings to ADO in the current conversation, prepare the report but ask for confirmation before any write.
 
 ## 1. Understand the findings
 
@@ -179,6 +181,9 @@ Do not update or reopen an existing matching thread in this version.
 
 ## 7. Post and verify
 
+Before the first write, verify that the user's authorization applies to the resolved PR and the findings being posted.
+If the target PR or finding set changed after authorization, ask again.
+
 Post the summary first, then missing P0-P2 comments.
 Do not change votes, reviewers, thread statuses, work items, PR completion settings, or code.
 Do not request review or @-mention reviewers, teams, or code owners.
@@ -207,3 +212,4 @@ Do not claim success from write responses alone.
 - Findings reporting only.
 - No code edits, commits, pushes, PR creation, work items, votes, reviewer changes, or thread resolution.
 - Never post stale findings without explicit user confirmation.
+- Never treat skill invocation alone as authorization to write to ADO.
