@@ -1,8 +1,6 @@
 ---
 name: pr-code-review
 description: "Multi-model AI code review. Orchestrates parallel `code-reviewer` sub-agents over a diff and reports findings (severity + confidence) plus a machine-readable JSON artifact. Two tiers — Lightweight (two reviewers) and Full (per-focus packets). It never edits code, posts PR comments, creates PRs, or files work items."
-user-invocable: true
-disable-model-invocation: true
 ---
 
 # pr-code-review

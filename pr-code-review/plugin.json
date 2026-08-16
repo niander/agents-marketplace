@@ -1,11 +1,11 @@
 {
   "name": "pr-code-review",
-  "description": "Multi-model AI code review. An orchestrator skill dispatches non-mutating code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters and synthesizes them into a findings report plus machine-readable JSON. Reviewers investigate freely and may build/run/test the code to verify findings, but the review is non-mutating: it produces findings only and does not edit code, post PR comments, create PRs, or file work items. Invoked manually only (not auto-invoked, to avoid review loops).",
-  "version": "0.1.0",
+  "description": "Pull request review toolkit with multi-model code analysis and Azure DevOps reporting. It runs diverse read-only reviewers, consolidates and verifies their findings, and includes a standalone skill for publishing structured findings from any source to ADO pull requests.",
+  "version": "1.0.0",
   "author": {
     "name": "niander"
   },
-  "keywords": ["code-review", "pr", "review", "multi-model"],
+  "keywords": ["code-review", "pr", "review", "multi-model", "azure-devops", "ado"],
   "agents": "agents/",
   "skills": ["skills/"]
 }
