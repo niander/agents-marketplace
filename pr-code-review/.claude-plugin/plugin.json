@@ -1,9 +1,9 @@
 {
   "name": "pr-code-review",
-  "description": "Multi-model AI code review. An orchestrator skill dispatches non-mutating code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters and synthesizes them into a findings report plus machine-readable JSON. The review is non-mutating: it produces findings only and does not edit code, post PR comments, create PRs, or file work items.",
-  "version": "0.1.0",
+  "description": "Multi-model AI code review plus a standalone Azure DevOps findings reporter. One skill coordinates read-only reviewer agents; the other publishes any supplied finding set to an ADO PR with severity-aware threads and safety checks.",
+  "version": "0.2.0",
   "author": {
     "name": "niander"
   },
-  "keywords": ["code-review", "pr", "review", "multi-model"]
+  "keywords": ["code-review", "pr", "review", "multi-model", "azure-devops", "ado"]
 }

@@ -10,7 +10,7 @@
     {
       "name": "pr-code-review",
       "source": "./pr-code-review",
-      "description": "Multi-model AI code review. An orchestrator skill dispatches read-only code-reviewer sub-agents that report coverage-first findings with confidence scores; the orchestrator filters, fixes, and can persist findings to an opt-in SQL board."
+      "description": "Multi-model AI code review plus a standalone Azure DevOps reporter for any finding set, with summary reporting, P0-P2 threads, stale-source confirmation, and duplicate safeguards."
     },
     {
       "name": "azure-kusto",

@@ -11,7 +11,7 @@ Add it as a marketplace from `niander/agents-marketplace`.
 
 | Plugin | What it does | Copilot CLI | Claude Code |
 | --- | --- | :---: | :---: |
-| [`pr-code-review`](pr-code-review) | Multi-model code review: sub-agents report findings with confidence scores, an orchestrator filters and synthesizes them | ✅ | ✅ |
+| [`pr-code-review`](pr-code-review) | Multi-model code review plus standalone Azure DevOps reporting for supplied findings | ✅ | ✅ |
 | [`azure-kusto`](azure-kusto) | KQL and Azure Data Explorer guidance for logs, telemetry, and time series | ✅ | ✅ |
 | [`azure-pipelines`](azure-pipelines) | Azure Pipelines YAML guidance with schema-aware language server support | ✅ | ✅ |
 | [`run-simplify`](run-simplify) | Code-quality cleanup pass over a diff, looking for reuse, simplification, efficiency, and altitude issues | ✅ | ✅ |
