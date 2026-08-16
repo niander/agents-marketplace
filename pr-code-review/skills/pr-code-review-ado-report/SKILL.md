@@ -33,8 +33,14 @@ Preserve the supplied text for these fields verbatim.
 Do not expand it, rewrite it into a longer explanation, or invent missing technical claims.
 Omit a field when the source does not provide it.
 Report P4 or any lower-priority severity label as P3.
+If severity is missing or cannot be interpreted as P0-P3, ask the user before posting.
 If the supplied material contains raw candidates and verified findings, report only the verified set.
 If it is unclear which findings the user approved, ask before writing to ADO.
+
+Before formatting, consolidate findings that describe the same underlying defect, root cause, and failure mechanism,
+even when they cite different files or lines.
+Preserve all affected locations and supporting evidence, and retain the highest supplied severity and confidence.
+Do not merge findings merely because they concern the same component or theme.
 
 ## 2. Resolve which pull request
 
@@ -160,8 +166,9 @@ Never attach a finding to an arbitrary nearby line.
 ## 6. Avoid duplicate reports
 
 Before posting, list existing PR threads across all statuses and all result pages.
-Skip a finding only when an existing thread has the same supplied finding identifier, or the same normalized
-file/side/line plus exact Title and Claim.
+Exclude deleted threads and deleted comments.
+Skip a finding only when a non-deleted existing comment has the same normalized file, side, line, Title, and Claim.
+For PR-level findings without a line, compare the available file, Title, and Claim.
 Skip the summary only when the same visible summary body is already present.
 Do not infer thread presence or resolution from high-level PR status, reviewer decisions, replies, or comment counts.
 Do not treat similar wording alone as proof of duplication.
