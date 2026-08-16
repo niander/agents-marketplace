@@ -1,0 +1,10 @@
+{
+  "name": "typescript-lsp",
+  "description": "TypeScript and JavaScript code intelligence for navigation, references, rename, and type information using typescript-language-server.",
+  "version": "1.0.0",
+  "author": {
+    "name": "niander"
+  },
+  "keywords": ["typescript", "javascript", "lsp", "language-server"],
+  "lspServers": "lsp.json"
+}
