@@ -25,7 +25,15 @@ function dependenciesPresent() {
 }
 
 function installDependencies() {
-  const npmArgs = ['ci', '--omit=dev', '--ignore-scripts', '--no-audit', '--no-fund'];
+  const npmArgs = [
+    'install',
+    '--omit=dev',
+    '--ignore-scripts',
+    '--no-audit',
+    '--no-fund',
+    '--no-package-lock',
+    '--no-save',
+  ];
   const command = process.platform === 'win32'
     ? process.env.ComSpec || 'cmd.exe'
     : 'npm';
@@ -48,7 +56,7 @@ if (!dependenciesPresent()) {
   process.stderr.write('[typescript-lsp] installing pinned npm dependencies\n');
   if (!installDependencies() || !dependenciesPresent()) {
     process.stderr.write(
-      `[typescript-lsp] dependency installation failed. Run "npm ci" in "${__dirname}".\n`
+      `[typescript-lsp] dependency installation failed. Run "npm install" in "${__dirname}".\n`
     );
     process.exit(127);
   }
