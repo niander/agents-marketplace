@@ -1,13 +1,16 @@
 ---
 name: run-simplify
-description: "Review the changed code for reuse, simplification, efficiency, and altitude cleanups, then apply the fixes. Quality only — it does not hunt for correctness bugs."
-user-invocable: true
-disable-model-invocation: true
+description: "Reviews the changed code for reuse, simplification, efficiency, and altitude cleanups, using 4 independent subagents. Applies fixes at the end. Quality only — it does not hunt for correctness bugs."
 metadata:
   source: Adapted from the Claude Code built-in `simplify` skill.
 ---
 
-# run-simplify
+# When to use
+
+Use this skill if the user requested it directly or if the user has previously used the `run-simplify` skill in the same session and asked for a new run of "simplify".
+Do not use autonomously — this skill is intended to be run explicitly by the user, not as a subagent of another skill.
+
+# Instructions
 
 You are improving the quality of the changed code, not hunting for bugs.
 Review it for reuse, simplification, efficiency, and altitude issues, then fix what you find.
