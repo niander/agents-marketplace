@@ -15,7 +15,7 @@
     {
       "name": "claude-auto-repo-setup",
       "source": "./claude-auto-repo-setup",
-      "description": "SessionStart + CwdChanged hooks that auto-wire local-only Claude conveniences in the current git repo: CLAUDE.md -> AGENTS.md, and .claude/skills & .claude/agents symlinks to .github/. Idempotent and never commits anything."
+      "description": "On session start and working-directory change, wires up local-only Claude conveniences in the current git repo: a CLAUDE.md pointing at an existing AGENTS.md, and individual symlinks into .claude/ for each skill under .github/skills and each agent under .github/agents. Skips repo skills whose names would shadow a built-in Claude Code skill. Idempotent, and adds everything to the repo's local git excludes so nothing is committed."
     },
     {
       "name": "azure-kusto",
