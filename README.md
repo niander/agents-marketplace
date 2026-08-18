@@ -1,7 +1,7 @@
 # niander/agents-marketplace
 
 A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins) and [Claude Code](https://code.claude.com/docs/en/plugins).
-Plugins bundle skills, agents, or hooks for one or both CLIs.
+Plugins bundle skills, commands, agents, or hooks for one or both CLIs.
 
 Add it as a marketplace from `niander/agents-marketplace`.
 
