@@ -1,7 +1,7 @@
 {
   "name": "run-simplify",
   "description": "Code-quality cleanup pass over a diff. Four parallel review agents look for reuse, simplification, efficiency, and altitude issues, then the fixes are applied. Adapted from the Claude Code built-in `simplify` skill.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "niander"
   },
