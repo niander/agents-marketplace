@@ -33,6 +33,11 @@
       "description": "Code-quality cleanup pass over a diff. Four parallel review agents look for reuse, simplification, efficiency, and altitude issues, then the fixes are applied. Adapted from the Claude Code built-in `simplify` skill."
     },
     {
+      "name": "common-commands",
+      "source": "./common-commands",
+      "description": "Ready-to-run slash commands wrapping instructions repeated often enough to be worth keeping in one place."
+    },
+    {
       "name": "human-message-style",
       "source": "./human-message-style",
       "description": "Rules for drafting concise, natural chat messages, emails, announcements, PR comments, and short teammate-facing summaries."

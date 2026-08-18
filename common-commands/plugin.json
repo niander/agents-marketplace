@@ -1,0 +1,10 @@
+{
+  "name": "common-commands",
+  "description": "Ready-to-run slash commands wrapping instructions repeated often enough to be worth keeping in one place.",
+  "version": "1.0.0",
+  "author": {
+    "name": "niander"
+  },
+  "keywords": ["commands", "prompts", "instructions", "workflow"],
+  "commands": "commands/"
+}
