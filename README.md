@@ -1,7 +1,7 @@
 # niander/agents-marketplace
 
 A personal plugin marketplace for [GitHub Copilot CLI](https://docs.github.com/copilot/concepts/agents/copilot-cli/about-cli-plugins) and [Claude Code](https://code.claude.com/docs/en/plugins).
-Plugins bundle skills, agents, or hooks for one or both CLIs.
+Plugins bundle skills, commands, agents, or hooks for one or both CLIs.
 
 Add it as a marketplace from `niander/agents-marketplace`.
 
@@ -16,6 +16,7 @@ Add it as a marketplace from `niander/agents-marketplace`.
 | [`azure-pipelines`](azure-pipelines) | Azure Pipelines YAML guidance with schema-aware language server support | ✅ | ✅ |
 | [`typescript-lsp`](typescript-lsp) | TypeScript and JavaScript code intelligence for navigation, references, rename, and type information | ✅ | — |
 | [`run-simplify`](run-simplify) | Code-quality cleanup pass over a diff, looking for reuse, simplification, efficiency, and altitude issues | ✅ | ✅ |
+| [`common-commands`](common-commands) | Slash commands for instructions repeated often enough to keep in one place | ✅ | ✅ |
 | [`human-message-style`](human-message-style) | Rules for drafting concise, natural chat messages, emails, and PR comments | ✅ | ✅ |
 | [`writing-clearly-and-concisely`](writing-clearly-and-concisely) | Editing help for long-form writing, including the tells of AI-generated prose | ✅ | ✅ |
 | [`claude-auto-repo-setup`](claude-auto-repo-setup) | Hooks that wire up local-only Claude conveniences in the current git repo | — | ✅ |
@@ -31,7 +32,7 @@ Add it as a marketplace from `niander/agents-marketplace`.
 - `marketplace.json` — the catalog Copilot CLI reads.
 - `.claude-plugin/marketplace.json` — the catalog Claude Code reads.
   The two lists differ where a plugin only works on one platform.
-- Local plugins each have a directory holding their manifests and `skills/`, `agents/`, or `hooks/` assets.
+- Local plugins each have a directory holding their manifests and `skills/`, `commands/`, `agents/`, or `hooks/` assets.
   Externally sourced plugins are pinned in the marketplace manifests.
 - `AGENTS.md` — conventions to follow when changing this repo.
 
