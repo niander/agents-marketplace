@@ -1,7 +1,7 @@
 {
   "name": "pr-code-review",
   "description": "Pull request review toolkit with multi-model code analysis and Azure DevOps reporting. It runs diverse read-only reviewers, consolidates and verifies their findings, and includes a standalone skill for publishing structured findings from any source to ADO pull requests.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "niander"
   },
