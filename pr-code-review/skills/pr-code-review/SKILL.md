@@ -1,6 +1,6 @@
 ---
 name: pr-code-review
-description: "Multi-model AI code review. Orchestrates parallel `code-reviewer` sub-agents over a diff and reports findings (severity + confidence) plus a machine-readable JSON artifact. Two tiers — Lightweight (two reviewers) and Full (per-focus packets). It never edits code, posts PR comments, creates PRs, or files work items."
+description: "Multi-model AI code review. Orchestrates parallel `code-reviewer` sub-agents over a diff and reports findings (severity + confidence) plus a machine-readable JSON artifact. Two tiers — Lightweight (two reviewers) and Full (per-focus packets). It never edits code, posts PR comments, creates PRs, or files work items. Invoke only when `pr-code-review` is named in the request, not for general asks to review, audit, or inspect code."
 ---
 
 # pr-code-review
@@ -10,6 +10,14 @@ You discover the diff, build a compact **Review Packet**, spawn the `code-review
 then collect, dedup, verify, and synthesize their findings.
 Never review the code yourself — always delegate the reading, so findings come from models other than your own.
 Your deliverable is a **findings report plus a JSON findings artifact**.
+
+## When to use
+
+Use this skill only when the user asks for `pr-code-review` explicitly — either naming the skill,
+or asking for another multi-model review after a previous `pr-code-review` run in the same session.
+
+Do not use it for a general request to review, audit, or inspect code,
+and do not run it as a step inside another skill or delegated task.
 
 ## Scope boundary
 
