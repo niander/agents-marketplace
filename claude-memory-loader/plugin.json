@@ -1,0 +1,10 @@
+{
+  "name": "claude-memory-loader",
+  "description": "Automatically injects Claude Code auto-memory for the current Git repository into Copilot CLI sessions as supplemental context, clearly separated from memory owned by the current agent harness.",
+  "version": "0.1.0",
+  "author": {
+    "name": "niander"
+  },
+  "keywords": ["claude-code", "memory", "context", "recall"],
+  "hooks": "hooks/hooks.json"
+}

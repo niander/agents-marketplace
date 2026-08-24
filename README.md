@@ -14,6 +14,7 @@ Add it as a marketplace from `niander/agents-marketplace`.
 | [`pr-code-review`](pr-code-review) | Multi-model code review plus standalone Azure DevOps reporting for supplied findings | ✅ | ✅ |
 | [`azure-kusto`](azure-kusto) | KQL and Azure Data Explorer guidance for logs, telemetry, and time series | ✅ | ✅ |
 | [`azure-pipelines`](azure-pipelines) | Azure Pipelines YAML guidance with schema-aware language server support | ✅ | ✅ |
+| [`claude-memory-loader`](claude-memory-loader) | Inject Claude Code auto-memory as supplemental context, separate from the current harness's memory | ✅ | - |
 | [`typescript-lsp`](typescript-lsp) | TypeScript and JavaScript code intelligence for navigation, references, rename, and type information | ✅ | — |
 | [`run-simplify`](run-simplify) | Code-quality cleanup pass over a diff, looking for reuse, simplification, efficiency, and altitude issues | ✅ | ✅ |
 | [`common-commands`](common-commands) | Slash commands for instructions repeated often enough to keep in one place | ✅ | ✅ |
