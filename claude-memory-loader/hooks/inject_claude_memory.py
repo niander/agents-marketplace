@@ -50,12 +50,12 @@ def repository_paths(cwd: Path) -> Tuple[Path, Path, Path]:
             stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            timeout=5,
+            timeout=2,
         )
     except FileNotFoundError as error:
         raise HookFailure("git executable was not found") from error
     except subprocess.TimeoutExpired as error:
-        raise HookFailure("Git repository discovery timed out after 5 seconds") from error
+        raise HookFailure("Git repository discovery timed out after 2 seconds") from error
 
     if result.returncode != 0:
         detail = diagnostic_text(os.fsdecode(result.stderr).strip())

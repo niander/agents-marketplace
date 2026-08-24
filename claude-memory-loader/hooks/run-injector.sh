@@ -5,8 +5,9 @@ set -u
 script_dir="$(
   cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd
 )" || {
-  printf '{}\n'
-  exit 0
+  printf '%s\n' \
+    'claude-memory-loader: could not resolve the bundled hook directory' >&2
+  exit 2
 }
 script="$script_dir/inject_claude_memory.py"
 
