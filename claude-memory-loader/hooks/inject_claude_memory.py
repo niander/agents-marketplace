@@ -102,10 +102,11 @@ def read_memory_index(path: Path) -> Tuple[str, bool]:
 
     with path.open("rb") as stream:
         for _ in range(MAX_INDEX_LINES):
-            line = stream.readline()
+            remaining_bytes = MAX_INDEX_BYTES - total_bytes
+            line = stream.readline(remaining_bytes + 1)
             if not line:
                 break
-            if total_bytes + len(line) > MAX_INDEX_BYTES:
+            if len(line) > remaining_bytes:
                 truncated = True
                 break
             parts.append(line)
