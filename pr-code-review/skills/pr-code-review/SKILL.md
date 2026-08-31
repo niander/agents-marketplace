@@ -1,23 +1,33 @@
 ---
 name: pr-code-review
-description: "Multi-model AI code review. Orchestrates parallel `code-reviewer` sub-agents over a diff and reports findings (severity + confidence) plus a machine-readable JSON artifact. Two tiers — Lightweight (two reviewers) and Full (per-focus packets). It never edits code, posts PR comments, creates PRs, or files work items. Invoke only when `pr-code-review` is named in the request, not for general asks to review, audit, or inspect code."
+description: "Multi-model AI code review. Orchestrates parallel `code-reviewer` sub-agents over a diff and reports findings (severity + confidence) plus a machine-readable JSON artifact. Two tiers: Quick (two reviewers, default) and Deep (three focus packets, selected by `--deep` or an explicit deep-review request). It never edits code, posts PR comments, creates PRs, or files work items. Invoke only when `pr-code-review` is named in the request, not for general asks to review, audit, or inspect code."
+argument-hint: "[--deep] [review target]"
 ---
 
 # pr-code-review
 
 You are the **orchestrator** of a multi-model code review.
-You discover the diff, build a compact **Review Packet**, spawn the `code-reviewer` sub-agent once per model,
+You discover the diff, build compact **Review Packets**, spawn the `code-reviewer` sub-agent once per model,
 then collect, dedup, verify, and synthesize their findings.
-Never review the code yourself — always delegate the reading, so findings come from models other than your own.
+Never review the code yourself - always delegate the reading, so findings come from models other than your own.
 Your deliverable is a **findings report plus a JSON findings artifact**.
 
 ## When to use
 
-Use this skill only when the user asks for `pr-code-review` explicitly — either naming the skill,
+Use this skill only when the user asks for `pr-code-review` explicitly - either naming the skill,
 or asking for another multi-model review after a previous `pr-code-review` run in the same session.
 
 Do not use it for a general request to review, audit, or inspect code,
 and do not run it as a step inside another skill or delegated task.
+
+## Invocation
+
+`argument-hint: "[--deep] [review target]"` shows the expected optional input in the skill picker.
+It is a display hint, not a host-validated flag declaration.
+
+- If the invocation contains the standalone token `--deep` or explicitly requests a deep review, run **Deep**.
+- Otherwise, run **Quick**.
+- Treat freeform invocation text as the requested review target or scope.
 
 ## Scope boundary
 
@@ -32,28 +42,24 @@ but never **changes** the code or any external state. It must not:
 
 Running tests to confirm a finding is fine; incidental build artifacts (`bin`/`obj`, caches) are fine.
 The only durable state the skill writes is the session `findings` table (scratch space, see *Findings board*).
-`suggested_fix` is report guidance only — never apply it.
+`suggested_fix` is report guidance only - never apply it.
 
 ## Tiers
 
 | Tier | When | What it does |
 |------|------|-------------|
-| **Lightweight** | Small-to-medium changes, routine PRs, quick sanity check | Two parallel reviewers (one per model family) each cover ALL focus areas on one packet |
-| **Full** | Major features, security-sensitive changes, large refactors, or explicit request | Seven focus packets, each reviewed by 2 diverse-family reviewers |
+| **Quick** | Default; routine PRs and quick sanity checks | Two reviewers from different model families each review one packet containing all three focuses |
+| **Deep** | Explicit `--deep` or deep-review request | Three focus packets, each reviewed by a fresh pair from different model families |
 
-**Lightweight** — use freely for "review this", "take a look", "is this ready?", a pre-PR sanity check,
-or small-to-medium routine changes.
-
-**Full** — only with clear signal: the user asks for a thorough review; a major feature is being finalized;
-security-sensitive changes (auth, input validation, secrets); or a large PR.
-
+Do not upgrade Quick to Deep automatically. Deep is selected only by `--deep` or an explicit deep-review request.
 This skill reviews existing changes; it isn't for planning new work.
 
-## Step 1 — Discover the diff
+## Step 1 - Discover the diff
 
 Resolve the base/head to **fixed commit SHAs** and put the resolved `git diff <base> <head>` in the packet.
 
-**PR / branch review** (default) — base is the merge-base (three-dot semantics), so commits already on `main` are excluded:
+**PR / branch review** (default) - base is the merge-base (three-dot semantics), so commits already on `main`
+are excluded:
 
 ```powershell
 $head = git rev-parse HEAD
@@ -65,7 +71,7 @@ $head = git rev-parse origin/<pr-branch>
 $base = git merge-base origin/main origin/<pr-branch>
 ```
 
-**Local working-tree review** ("before I push/commit") — diff the working tree against a pinned base:
+**Local working-tree review** ("before I push/commit") - diff the working tree against a pinned base:
 
 ```powershell
 $base = git rev-parse HEAD
@@ -73,158 +79,111 @@ $base = git rev-parse HEAD
 ```
 
 For a strictly reproducible review, ask the user to commit first.
-Untracked files won't appear in `git diff`; to review one, name it in the changed-file list so a reviewer opens it with `view`.
+Untracked files won't appear in `git diff`; list any that belong in the review separately in the packet.
 
-## Step 2 — Build the Review Packet
+## Step 2 - Define the Review Packet
 
-The packet is **pointers, not dumps**: the reviewer runs the diff command and discovers instruction files itself. Include:
+The packet contains only the dynamic inputs the reviewer cannot infer:
 
-- **packet_id** and **scope_id** — short labels the reviewer must echo back.
-- **base/head SHAs** and the **exact diff command** (from Step 1) for the reviewer to run.
-- **changed-file list + stat**, flagging renames, deletions, and binary/generated files.
-- **diff scope** — mark whether the command covers the **whole** change or is **scoped** to assigned files;
-  for a scoped packet the changed-file list marks what's out of scope.
-- **prior findings** — for a sequential packet, the `open`/`dismissed` findings so far (see *Filtering*),
-  so reviewers skip `dismissed` items and avoid duplicating `open` ones.
-- **focus** — the focus ID(s) **and their checklists** pasted in from *Focus areas*.
-- **how to persist** — the `findings` table name, the reviewer's `reporter` label, its `packet_id`,
-  and the `finding_uid` scheme; tell it to write rows **and** return the JSON block.
+- `packet_id`: `quick`, `correctness-safety`, `design-maintainability`, or `testing`.
+- `reporter`: the unique label for this reviewer invocation.
+- `scope_id`: a short label for the assigned file/diff scope.
+- Resolved base/head SHAs and the exact diff command from Step 1.
+- The selected review question and checklist. Quick receives all three.
+- Any explicit path scope or untracked files that the diff command does not communicate.
 
-## Step 3 — Choose models for diversity
+The reviewer derives the changed-file list and supporting context.
+Its agent definition already owns reporting boundaries, persistence behavior, and output format;
+do not repeat those instructions in every packet.
+
+## Step 3 - Choose models for diversity
 
 Spawn the [`code-reviewer`](../../agents/code-reviewer.agent.md) sub-agent that ships with this plugin,
-in the background, once per reviewer, pairing the two across model families so findings are diverse:
+once per reviewer, pairing reviewers across model families so findings are diverse:
 
-- Run **one reviewer on your own current session model**, and the **other on a strong model from a
-  different family** (if your session model is Claude, the other reviewer is GPT; if GPT, the other is Claude).
-  Confirm the two ran on different families.
-- **Caps:** Lightweight = exactly 2 reviewers. Full = the packet plan below (or the Large-PR plan), no more.
-  Don't spawn extra reviewers when models disagree — default to the higher severity.
+- For every packet, run **one reviewer on your own current session model**, and the **other on a strong model
+  from a different family** (if your session model is Claude, the other reviewer is GPT; if GPT, the other is Claude).
+  Confirm each pair ran on different families.
+- Quick uses exactly 2 reviewers on the same combined packet.
+- Deep uses exactly 6 fresh reviewers: 2 per focus packet. Do not resume or reuse reviewers across packets.
+- This version does not prescribe packet batching or a concurrency cap; use the runtime's normal scheduling.
 
-## Focus areas (checklists)
+## Review focuses
 
-Paste the checklist(s) for a packet's focus ID(s) into it (Step 2) and tell the reviewer to work through every item.
-The procedures below decide which IDs go in which packet.
+Each focus is a complete Review Packet for Deep.
+Quick combines all three questions and checklists into one packet.
 
-### `correctness-security`
-- Logic errors, incorrect algorithms, dead code, unreachable branches.
-- Null/undefined handling gaps; null-reference risk in chained operations.
-- Race conditions, thread-safety, deadlock potential in concurrent code.
-- Input validation gaps; injection (SQL, XSS, command); auth/authz bypasses.
-- Sensitive data exposure in logs/errors/responses; hardcoded secrets.
-- SSRF, path traversal, insecure deserialization.
-- Spec conformance: does the code do what it claims? Do comments match behavior?
+### `correctness-safety`
 
-### `architecture`
-- Consistency with existing, **uncodified** codebase patterns
-  (formal instruction-file rule violations belong to `conventions`, not here).
-- Abstraction quality: right level? Leaky abstractions? SOLID adherence.
-- Coupling that should be loose; dependencies flowing the wrong direction.
-- Reinventing utilities that already exist (use `grep`/`glob` to check).
+**Question:** Does the changed code behave correctly and safely when executed?
 
-### `edge-cases-resilience`
-- Error handling: swallowed errors, empty catch blocks, missing propagation.
-- Unclear or unhelpful error messages.
-- Boundary conditions: empty inputs, nulls, max values, zero-length collections.
-- Resource cleanup on failure (IDisposable, using/try-finally).
-- Partial-failure states in multi-step operations.
-- Missing retry/backoff for transient failures; missing timeouts for external calls.
-- CancellationToken propagation through async chains.
+- Functional logic, algorithms, data transformations, state mutations, invariants, unreachable branches,
+  off-by-one errors, and spec conformance. Check that comments match behavior.
+- Type safety, implicit conversions, nullable state, null/undefined handling, generic constraints,
+  empty inputs, zero-length collections, and maximum-value boundaries.
+- Error propagation, actionable error messages, resource cleanup, partial failures, retry/backoff,
+  timeouts, and cancellation propagation.
+- Race conditions, thread safety, deadlocks, blocking operations in async code, complexity regressions,
+  hot-path allocations, repeated I/O, serialization, parsing, and remote calls.
+- Input validation, injection (SQL, XSS, command), authentication and authorization bypasses,
+  sensitive-data exposure in logs/errors/responses, hardcoded secrets, SSRF, path traversal,
+  and insecure deserialization.
+
+### `design-maintainability`
+
+**Question:** Does the change fit the repository and remain understandable, connected, and maintainable?
+
+- **Discover the governing instruction files yourself:** the repo-root `AGENTS.md`,
+  `.github/copilot-instructions.md`, and `CLAUDE.md`; any `AGENTS.md`, `CLAUDE.md`, or
+  `copilot-instructions.md` in an ancestor directory of a changed file; and any local repo-relative files
+  those instructions reference. Do not follow remote URLs or paths outside the repository.
+- Check written rules only when you can quote the exact rule, name the instruction-file path,
+  and cite the changed line that violates it. Do not infer violations from the "spirit" of a rule.
+- Consistency with unwritten repository patterns, architecture and layering, abstraction quality,
+  responsibility placement, SOLID adherence, coupling, dependency direction, API/interface design,
+  backwards compatibility, and utilities that may already exist.
+- Wiring and reachability: dependencies actually used, projects referenced, configuration loaded,
+  services or handlers registered, entry points connected, and old callers migrated.
+- Readability and maintainability: naming, duplication, dead variables/parameters/methods/imports,
+  long or deeply nested logic judged in context, god objects, feature envy, data clumps,
+  primitive obsession, speculative generality, and adequate structured logging/observability.
+- Documentation: accuracy of changed documentation and missing documentation required by public behavior,
+  API changes, or repository rules.
 
 ### `testing`
-- Are all new code paths tested? Are product requirements covered?
-- Review implementation and test code together: do tests exercise the real failure modes, not just happy paths?
-  Untested exception paths that could crash production are correctness bugs, not just coverage gaps.
-- Anti-patterns: testing language features, weak assertions (only `!= null`), over-mocked tests,
-  asserting implementation details instead of behavior.
-- Missing negative cases for error paths and invalid inputs.
-- Flaky indicators: sleep/delay, time-dependent assertions.
 
-### `detailed-correctness`
-- Trace each code path: is data transformed correctly at each step?
-- Type safety: implicit conversions, nullable misuse, generic constraints.
-- Off-by-one errors in loops, indices, string operations.
-- State management: are invariants maintained? Is state mutated correctly?
+**Question:** Does the test suite meaningfully verify the change and its failure modes?
 
-### `polish-performance`
-- O(n^2) or worse where O(n) is achievable; unnecessary allocations in hot paths.
-- Blocking operations in async contexts (`.Result`, `.Wait()`).
-- Unused/dead code: variables, parameters, methods, imports.
-- Redundant or duplicated logic that should be consolidated.
-- Logging/observability: adequate structured logging at the right levels.
-- Naming clarity: descriptive, consistent, unambiguous.
+- Coverage of new code paths, product requirements, public behavior, and regression scenarios.
+- Review implementation and tests together; confirm tests exercise real behavior and failure modes,
+  not just happy paths.
+- Negative cases for invalid input, exceptions, partial failures, security boundaries,
+  and other relevant failure paths.
+- Anti-patterns: testing language features, weak assertions, excessive mocking,
+  and assertions tied to implementation details instead of behavior.
+- Flakiness indicators: sleeps, timing assumptions, nondeterministic dependencies,
+  and time-dependent assertions.
 
-### `code-smells`
-- Long methods (>50 lines), deep nesting (>3 levels), god classes/functions.
-- Copy-paste (DRY violations), feature envy, data clumps, primitive obsession.
-- TODO/FIXME accumulation; speculative generality (over-engineering).
+## Quick procedure
 
-### `wiring`
-- New packages/dependencies added but never imported or used.
-- New projects in the solution but not referenced by any other project.
-- Suspicious cross-component references introducing coupling between unrelated areas.
-- Config/environment variables defined but never loaded.
-- Old patterns that should have been replaced by newly added capabilities.
+1. Discover the diff (Step 1).
+2. Build one packet with `packet_id: quick` containing all three focus questions and checklists.
+3. Spawn **2 reviewers** in parallel (Step 3), same packet, different families.
+4. Dedup and verify from the `findings` table, then proceed to *Synthesis*.
 
-### `conventions`
-- **Discover the instruction files yourself** — their contents are not in the packet.
-  Find the ones governing the changed code:
-  the repo-root `AGENTS.md`, `.github/copilot-instructions.md`, and `CLAUDE.md`;
-  any `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md` in a directory that is an ancestor of a changed file
-  (a directory's file applies only to files at or below it);
-  and any further files those reference (local, repo-relative references only — no remote URLs, nothing outside the repo).
-  Read each that exists.
-- Check the diff for **clear violations** of the rules they state —
-  logging, DI, naming, test-framework, error-handling, file-placement, and any repo-specific musts.
-- **Only flag a violation you can pin down:** quote the exact rule and cite the exact changed line that breaks it.
-  No style preferences, no vague "spirit of the doc" inferences.
-- Name the instruction-file path and quote the rule in each finding;
-  in `failure_scenario`, state which rule is broken and the concrete consequence.
-- If no instruction file applies to the changed files, report nothing for this area.
+## Deep procedure
 
-## Lightweight procedure
+Build three packets:
 
-1. Discover the diff (Step 1) and build one packet (Step 2) with **all** focus IDs:
-   `correctness-security, architecture, edge-cases-resilience, testing, detailed-correctness, polish-performance, code-smells, wiring, conventions`.
-2. Spawn **2 reviewers** in parallel (Step 3), same packet, different families.
-3. Dedup and verify from the `findings` table, then proceed to *Synthesis*.
+| packet_id | Review question |
+|-----------|-----------------|
+| `correctness-safety` | Does the changed code behave correctly and safely when executed? |
+| `design-maintainability` | Does the change fit the repository and remain understandable, connected, and maintainable? |
+| `testing` | Does the test suite meaningfully verify the change and its failure modes? |
 
-## Full procedure
-
-Seven focus packets, each reviewed by 2 different-family reviewers.
-Testing sits with implementation review (not last) so reviewing implementation alongside tests
-surfaces correctness bugs, not just coverage gaps.
-
-| Packet | Focus ID | Notes |
-|--------|----------|-------|
-| **P1** | `correctness-security` | Broad sweep |
-| **P2** | `architecture` | Design, structure |
-| **Verification** | `code-smells`, `wiring` | One packet bundling both IDs |
-| **P3** | `edge-cases-resilience` | Failure modes, robustness |
-| **P4** | `testing` | Test meaningfulness, untested failure modes |
-| **P5** | `detailed-correctness`, `polish-performance` | Line-by-line, data flow, dead code, perf |
-| **P6** | `conventions` | Self-discovers instruction files, flags rule violations |
-
-The `P` labels are stable packet identities, not an execution order: 7 packets × 2 families = **14 reviewer calls**.
-
-**Run packets in parallel** — dispatch concurrently in batches within the runtime's parallelism cap.
-Run a packet sequentially only to feed a prior packet's confirmed findings forward as dedup context (Step 2)
-when it meaningfully cuts duplicate reporting.
-
-### Large PRs (>2000 lines)
-
-Use a read-only exploration pass (e.g. an `explore` agent) to group the changed files into:
-component groups, implementation-test pairings, and cross-cutting files (shared interfaces, configs, DI).
-Then build **scoped packets**, each with a diff command narrowed by pathspec to its files:
-
-| Reviewer | Scope | Focus |
-|----------|-------|-------|
-| **Cross-cutting** | Once, whole PR | `architecture`, `code-smells`, `wiring`, `conventions` |
-| **Per-component** | Parallel across groups | `correctness-security`, `edge-cases-resilience`, `detailed-correctness`, `polish-performance` |
-| **Paired** | Parallel across impl+test pairs | `testing` |
-
-Each scoped packet still carries the full changed-file list and a "scoped" marker.
-The shared `findings` table keeps this fan-out coordinated and resumable across the many reviewers.
+Each packet uses the common Step 2 inputs and one focus question and checklist.
+Spawn a fresh pair from different model families for each packet: 3 packets x 2 families = **6 reviewer calls**.
+Reviewers investigate their assigned focus deeply but may report any concrete issue discovered within the file scope.
 
 ## Findings board (SQL)
 
@@ -244,7 +203,6 @@ CREATE TABLE findings (
   file          TEXT,
   line          INTEGER,            -- nullable for file-level findings
   side          TEXT CHECK(side IN ('RIGHT','LEFT') OR side IS NULL),  -- NULL for file-level
-  focus         TEXT,
   summary       TEXT,
   failure_scenario TEXT,
   suggested_fix TEXT,
@@ -257,11 +215,12 @@ CREATE TABLE findings (
 **Reviewers write raw rows; you own merge and status.**
 Each reviewer INSERTs one row per finding (`INSERT OR IGNORE` on `finding_uid`, so a retry can't double-insert)
 and never UPDATEs, sets `merge_group`/`status`, or touches another reviewer's rows.
-After a reviewer finishes, you read its rows, group duplicates (`merge_group`), verify, and set `status`.
+After a reviewer finishes, read its rows, group duplicates (`merge_group`), verify, and set `status`.
 If a reviewer's rows are missing (a write failed), re-run it or INSERT from its returned JSON block.
 
-**Dedup by query.** Give plausibly-matching rows (same `file`/`side`, near line, similar intent) a shared `merge_group`,
-and **give every kept singleton its own `merge_group`** (the ranking query below drops rows with `NULL` merge_group).
+**Dedup by query.** Give findings that describe the same underlying defect, root cause, and failure mechanism
+a shared `merge_group`, even when they came from different packets.
+Give every kept singleton its own `merge_group` (the ranking query below drops rows with `NULL` merge_group).
 Then rank the groups:
 
 ```sql
@@ -275,41 +234,36 @@ GROUP BY merge_group
 ORDER BY top_severity;
 ```
 
-For a group's descriptive fields (`file`, `line`, `side`, `focus`, `summary`, `failure_scenario`, `suggested_fix`),
+For a group's descriptive fields (`file`, `line`, `side`, `summary`, `failure_scenario`, `suggested_fix`),
 take the group's **top-severity row** (break ties by highest confidence) rather than arbitrary SQL picks.
 
 ## Filtering (you filter, reviewers don't)
 
-Reviewers are coverage-first by design: they report every candidate with a confidence and a failure scenario.
+Reviewers report every candidate with a confidence and a failure scenario.
 Telling them to self-censor low-severity items measurably lowers recall, so filtering is your job:
 
 - Promote findings with **cross-model consensus** (more than one `reporter`) or `max_confidence >= 80`.
 - Spot-check a lone low-confidence finding against the code before including it; drop the low-confidence long tail.
 - A finding with no plausible failure scenario is a drop candidate.
 - Mark verified non-issues `status = 'dismissed'`; everything you keep stays `open`.
-
-When feeding prior findings forward (Step 2):
-
-- **`dismissed` = hard exclusion** — reviewers must not re-raise these.
-- **`open` = known context** — reviewers must not duplicate these *unless* they add new evidence, higher severity,
-  or a distinct failure mode. Don't hard-exclude `open` items, or you lose the cross-model / cross-focus
-  confirmation that is one of this skill's strongest signals.
+- Treat agreement as a ranking signal, not proof. Verify the underlying claim before promoting it.
 
 ## Synthesis
 
 Produce a unified findings report:
 
-1. **Readiness assessment** — a review-based judgment of whether the change appears ready, with reasons.
-2. **Issues by severity** — with cross-model consensus markers.
-3. **Test quality** — meaningfulness and coverage.
-4. **Positive observations** — what's done well.
+1. **Readiness assessment** - a review-based judgment of whether the change appears ready, with reasons.
+2. **Issues by severity** - with cross-model consensus markers.
+3. **Test quality** - meaningfulness and coverage.
+4. **Positive observations** - what's done well.
 
 Present the report as the primary output, followed by the JSON artifact.
 
 ### JSON findings artifact
 
 Export the merged, verified findings from the table as one JSON object.
-Put only `open` findings (one entry per `merge_group`) in `findings`; keep verified non-issues in a separate `dismissed_candidates` array if you want an audit trail.
+Put only `open` findings (one entry per `merge_group`) in `findings`;
+keep verified non-issues in a separate `dismissed_candidates` array if you want an audit trail.
 
 ```json
 {
@@ -321,7 +275,6 @@ Put only `open` findings (one entry per `merge_group`) in `findings`; keep verif
       "line": 220,
       "side": "RIGHT",
       "scope_id": "<echo of the packet's scope>",
-      "focus": "correctness-security",
       "reporters": "claude, gpt",
       "summary": "one-line what's wrong",
       "failure_scenario": "concrete user-visible consequence",
@@ -335,5 +288,5 @@ Put only `open` findings (one entry per `merge_group`) in `findings`; keep verif
 
 ## Rules
 
-1. **Complete the chosen scope.** Don't start a Full review and abandon it partway.
+1. **Complete the chosen tier.** Don't start a Deep review and abandon it partway.
 2. **No dismissing findings as "pre-existing"** unless you've independently verified it.
