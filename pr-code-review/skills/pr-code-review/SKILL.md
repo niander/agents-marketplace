@@ -86,7 +86,8 @@ Untracked files won't appear in `git diff`; list any that belong in the review s
 The packet contains only the dynamic inputs the reviewer cannot infer:
 
 - `packet_id`: `quick`, `correctness-safety`, `design-maintainability`, or `testing`.
-- `reporter`: the unique label for this reviewer invocation.
+- `reporter`: a stable model-family label (for example, `claude` or `gpt`), reused for that family across
+  packets. The two labels within a packet must differ.
 - `scope_id`: a short label for the assigned file/diff scope.
 - Resolved base/head SHAs and the exact diff command from Step 1.
 - The selected review question and checklist. Quick receives all three.
@@ -197,7 +198,7 @@ CREATE TABLE findings (
   finding_uid   TEXT PRIMARY KEY,   -- "<packet_id>:<reporter>:<n>"; makes INSERT idempotent
   packet_id     TEXT,
   scope_id      TEXT,
-  reporter      TEXT,               -- model family / round that raised this row
+  reporter      TEXT,               -- stable model-family label
   severity      TEXT CHECK(severity IN ('P0','P1','P2','P3')),
   confidence    INTEGER,            -- 0-100 (this reviewer's call)
   file          TEXT,
@@ -215,6 +216,8 @@ CREATE TABLE findings (
 **Reviewers write raw rows; you own merge and status.**
 Each reviewer INSERTs one row per finding (`INSERT OR IGNORE` on `finding_uid`, so a retry can't double-insert)
 and never UPDATEs, sets `merge_group`/`status`, or touches another reviewer's rows.
+Because each packet has at most one reviewer per family, `<packet_id>:<reporter>:<n>` remains unique within
+a run while retries remain idempotent.
 After a reviewer finishes, read its rows, group duplicates (`merge_group`), verify, and set `status`.
 If a reviewer's rows are missing (a write failed), re-run it or INSERT from its returned JSON block.
 
@@ -226,6 +229,7 @@ Then rank the groups:
 ```sql
 SELECT merge_group,
        GROUP_CONCAT(DISTINCT reporter) AS reporters,
+       COUNT(DISTINCT reporter) AS reporter_count,
        MIN(severity)   AS top_severity,     -- "P0" sorts before "P3", so MIN = most severe
        MAX(confidence) AS max_confidence
 FROM findings
@@ -242,7 +246,7 @@ take the group's **top-severity row** (break ties by highest confidence) rather 
 Reviewers report every candidate with a confidence and a failure scenario.
 Telling them to self-censor low-severity items measurably lowers recall, so filtering is your job:
 
-- Promote findings with **cross-model consensus** (more than one `reporter`) or `max_confidence >= 80`.
+- Promote findings with **cross-model consensus** (`reporter_count > 1`) or `max_confidence >= 80`.
 - Spot-check a lone low-confidence finding against the code before including it; drop the low-confidence long tail.
 - A finding with no plausible failure scenario is a drop candidate.
 - Mark verified non-issues `status = 'dismissed'`; everything you keep stays `open`.
