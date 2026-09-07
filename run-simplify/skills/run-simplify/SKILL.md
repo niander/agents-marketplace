@@ -30,6 +30,9 @@ Launch **4 independent general-purpose agents** using whatever subagent/task too
 Pass each agent the diff and one of the four angles below.
 Each returns its findings with `file`, `line`, a one-line `summary`, and the concrete cost (what is duplicated, wasted, or harder to maintain).
 
+Do not mention this skill by name or tell a subagent to invoke a skill; that can recursively launch the workflow.
+Give each subagent a self-contained prompt containing only the diff, assigned angle, relevant repository context, and required output.
+
 If no subagent tool is available, make the four passes yourself instead — one angle at a time, each a separate read of the diff.
 Keep them separate; one combined pass blurs the angles and finds less.
 If the harness has a task/todo tool, use it to track the four passes.
