@@ -3,7 +3,6 @@
     "azure-pipelines": {
       "command": "node",
       "args": ["${PLUGIN_ROOT}/skills/azure-pipelines/lsp-wrapper.js"],
-      "cwd": "${PLUGIN_ROOT}/skills/azure-pipelines",
       "fileExtensions": {
         ".yml": "yaml",
         ".yaml": "yaml"

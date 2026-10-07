@@ -1,7 +1,7 @@
 {
   "name": "azure-pipelines",
   "description": "Azure Pipelines YAML guidance with schema-aware language server support for pipelines and templates.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "niander"
   },
