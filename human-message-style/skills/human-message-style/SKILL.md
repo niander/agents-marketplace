@@ -69,11 +69,15 @@ A chat/email message is NOT a documentation page. The reader is a busy teammate,
 
 9. **Cut every sentence that doesn't change the reader's understanding.** First drafts (yours or the user's) carry sentences that serve the writer, not the reader - context they already have, your reasoning chain, hedges that pad. Cut them.
 
+    Keep qualifiers that identify the component, operation, or artifact. Shorter wording is not better if it makes the reader guess what you mean. Informal language should still be technically precise.
+
 10. **Match the user's voice if you know it.** If the user has a Microsoft 365 / Teams / Outlook history accessible (via WorkIQ or similar), look at recent technical messages they wrote and match tone, sentence length, and structural habits. Voice matching may override the default style rules in this skill. For example, if the user consistently uses em-dashes, write em-dashes; if they sign off with "thanks", sign off with "thanks".
 
 11. **Open in a sentence, not a heading.** A message starts in conversation, not at the top of a doc outline. "Quick update on X:", "Heads up - Y", "I found Z" all work. Bold headlines and `## titles` as the first thing signal "this is a document" and shift the reader into reading-a-spec mode. Internal headings later in the message are fine when the content warrants them (rule 8); just don't open with one.
 
 12. **Don't reflexively use code-navigation syntax in prose.** Stack-trace references like `file.py:NNN` and source-syntax for literals like `("a", "b")` help when the reader is in an IDE or grep workflow and will jump to the code. In a message, prefer prose phrasing: "line NNN in `file.py`", "only `a` and `b`". Reserve the navigation form for cases where the reader is genuinely expected to navigate (e.g., a single deep-linked error report).
+
+13. **Write for the recipient's context.** Do not assume the reader has seen the conversation, logs, or code you inspected. Use familiar, concrete names that distinguish what you mean from plausible alternatives. For example, "the configuration parser" is clearer than "the parser" when several parsers could be involved. When asking someone to act, identify the purpose and target: "run the diagnostic script against the affected database," not just "run the script." Use shorthand once the reference is established. Do not re-explain context the reader already has.
 
 ## When the reader is closer to the material than you
 
@@ -151,6 +155,9 @@ Shipped Y subsystem redesign for Z (behind `FeatureFlag`). Default unchanged.
    - Did you open with a bold headline or `## title` instead of a sentence? (rule 11)
    - Are you using stack-trace syntax (`file:NNN`) or source-code literal syntax in prose where natural phrasing would read better? (rule 12)
    - If the reader is closer to the material than you, did you recap things they already know, or assert findings that would read better hedged?
+   - Would the intended recipient understand this without seeing my investigation or earlier conversation?
+   - Could references such as "the parser," "the script," or "the query" reasonably mean something else?
+   - For each requested action, is it clear what to do, where to do it, and what information to return?
    - **The self-check is internal.** Don't paste the checklist or the check results into your reply unless the user asks.
 4. Iterate with the user. After every revision, re-run the self-check.
 
